@@ -8,7 +8,7 @@
 		y: canvasEdgeHeight - 100,
 		width: 50,
 		height: 50,
-		speed: 2,
+		speed: 3,
 		velocity: 0,
 		velocityX: 0,
 		grounded: false,
@@ -106,17 +106,15 @@
 	var removeObstacle = function(obj) {
 		var i = obstacles.indexOf(obj);	//gets index number of the obstacles
 		obstacles.splice(i, 1);	//removes that obstacle
-		console.log("obstacle delted");
 	};
 
 	var detectObstacle = function(obstacle) {
 		if (player.x < obstacle.x + obstacle.width  && player.x + player.width  > obstacle.x &&
 			player.y < obstacle.y + obstacle.height && player.y + player.height > obstacle.y) {	
-			console.log(player.invincible + " b4");
 			if (player.invincible === false) {
 				player.hitPoints -= damage;
 				player.invincible = true;
-				console.log(player.invincible);
+				console.log(player.hitPoints);
 			}
 		}		
 	}
@@ -148,7 +146,7 @@
 		ctx.fillStyle = "#000";
 		ctx.font="20px Arial";
 		ctx.beginPath();
-		ctx.fillText("I will trek the might Sahara.",canvas.width/4,canvas.height/4);
+		ctx.fillText("I will trek the mighty Sahara.",canvas.width/4,canvas.height/4);
 		ctx.fillText("This way for Determination -->", canvas.width*.75, canvas.height*.75);
 		ctx.closePath();
 	}
@@ -182,27 +180,6 @@
 		}
 		if (event.keyCode === KEY_DOWN && playerEdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && playerEdgeY <= canvasEdgeHeight ) {
 			DownPressed = true;
-		}
-	});
-
-	$('body').keyup(function(event) {
-		if (event.keyCode === KEY_UP || event.keyCode === KEY_W) {
-			UpPressed = false;
-		}
-		if (event.keyCode === KEY_LEFT || event.keyCode === KEY_A) {
-			LeftPressed = false;
-		}
-		if (event.keyCode === KEY_RIGHT || event.keyCode === KEY_D) {
-			RightPressed = false;
-		}
-
-		//pause
-		if (event.keyCode === KEY_P) {
-			alert("You have paused the game.");
-		}
-		//restart the game
-		if (event.keyCode === SPACE) {
-			location.reload();
 		}
 	});
 
