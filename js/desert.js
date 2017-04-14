@@ -143,7 +143,7 @@
 	}
 
 	function directions() {
-		ctx.fillStyle = "#000";
+		ctx.fillStyle = "#fff";
 		ctx.font="20px Arial";
 		ctx.beginPath();
 		ctx.fillText("I will trek the mighty Sahara.",canvas.width/4,canvas.height/4);
