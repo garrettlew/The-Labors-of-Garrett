@@ -79,6 +79,11 @@
 			RightPressed = false;
 		}
 
+		//redouble
+		if (currentLevel === levelSelector.level0) {
+			KeyPressed = true;
+		}
+
 		//pause
 		if (event.keyCode === KEY_P) {
 			alert("You have paused the game.");
@@ -89,6 +94,39 @@
 		}
 	});
 
+	$('body').keydown(function(event) {
+
+		if (currentLevel === levelSelector.level1) {
+			if (event.keyCode === KEY_UP && player1.grounded || event.keyCode === KEY_W && player1.grounded) {
+				UpPressed = true;
+			}
+			if (event.keyCode === KEY_LEFT && player1.x >= 0 || event.keyCode === KEY_A && player1.x >= 0) {
+				LeftPressed = true;
+			}
+			if (event.keyCode === KEY_RIGHT && player1EdgeX <= canvas.width || event.keyCode === KEY_D && player1EdgeX <= canvas.width ) {
+				RightPressed = true;
+			}
+			if (event.keyCode === KEY_DOWN && player1EdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && player1EdgeY <= canvasEdgeHeight ) {
+				DownPressed = true;
+			}
+		}
+
+		if (currentLevel === levelSelector.level2) {
+			if (event.keyCode === KEY_UP && player.grounded || event.keyCode === KEY_W && player.grounded) {
+				UpPressed = true;
+			}
+			if (event.keyCode === KEY_LEFT && player.x >= 0 || event.keyCode === KEY_A && player.x >= 0) {
+				LeftPressed = true;
+			}
+			if (event.keyCode === KEY_RIGHT && playerEdgeX <= canvas.width || event.keyCode === KEY_D && playerEdgeX <= canvas.width ) {
+				RightPressed = true;
+			}
+			if (event.keyCode === KEY_DOWN && playerEdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && playerEdgeY <= canvasEdgeHeight ) {
+				DownPressed = true;
+			}
+		}
+
+	});
 
 	//Uses sudo finite state machine
 	var gameLoop = function() {
