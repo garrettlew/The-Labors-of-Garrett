@@ -102,21 +102,6 @@
 		}
 	}
 
-	$('body').keydown(function(event) {
-		if (event.keyCode === KEY_UP && player1.grounded || event.keyCode === KEY_W && player1.grounded) {
-			UpPressed = true;
-		}
-		if (event.keyCode === KEY_LEFT && player1.x >= 0 || event.keyCode === KEY_A && player1.x >= 0) {
-			LeftPressed = true;
-		}
-		if (event.keyCode === KEY_RIGHT && player1EdgeX <= canvas.width || event.keyCode === KEY_D && player1EdgeX <= canvas.width ) {
-			RightPressed = true;
-		}
-		if (event.keyCode === KEY_DOWN && player1EdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && player1EdgeY <= canvasEdgeHeight ) {
-			DownPressed = true;
-		}
-	});
-
 
 
 
