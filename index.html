@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
 	<title> What I'll Do to Get into UCLA </title>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+	
 </head>
 <body>
 
@@ -14,6 +15,17 @@
 <canvas id="myCanvas" width="1074" height= "576" style="border: 1px solid#000;"></canvas>
 
 <script>
+
+	//LOAD JS Files
+	function loadScript(src){
+		var el = document.createElement("script");
+		el.src = src;
+		document.body.appendChild(el);
+	}
+
+	loadScript("js/fountain.js");
+	loadScript("js/desert.js");
+	loadScript("js/redouble.js");
 
 	//LOADING IMAGES
 	var invertedFountain = new Image();
@@ -37,6 +49,10 @@
 	//to know which level to go back to when go to redouble
 	var previousLevel = currentLevel;
 
+	function nextLevel() {
+		currentLevel++;
+	}
+
 	//KeyCodes
 	var KEY_LEFT=37, KEY_UP=38, KEY_RIGHT=39, KEY_DOWN=40, SPACE=32, KEY_P=80;
 	//WASD
@@ -51,30 +67,6 @@
 	function eraseCanvas() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	}
-
-	//LOAD JS Files
-	function loadScript(src){
-		var el = document.createElement("script");
-		el.src = src;
-		document.body.appendChild(el);
-	}
-
-	function nextLevel() {
-		currentLevel++;
-	}
-
-	loadScript("js/fountain.js");
-	loadScript("js/desert.js");
-	loadScript("js/redouble.js");
-
-	function checkEndZone() {
-
-		if (player1.x < teleX + teleWidth  && player1.x + player1.width  > teleX &&
-			player1.y < teleY + teleHeight && player1.y + player1.height > teleY) {
-			nextLevel();	
-		}
-	}
-
 
 	$('body').keyup(function(event) {
 		if (event.keyCode === KEY_UP || event.keyCode === KEY_W) {
