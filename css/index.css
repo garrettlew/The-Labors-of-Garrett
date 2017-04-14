@@ -1,2 +1,6 @@
 	* { padding: 0; margin: 0; }
 	canvas { background: #00bfff; display: block; margin: 0 auto; }
+
+	h1 {
+		font-family: "Verdana";
+	}
