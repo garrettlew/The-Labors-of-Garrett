@@ -67,6 +67,14 @@
 	loadScript("js/desert.js");
 	loadScript("js/redouble.js");
 
+	function checkEndZone() {
+
+		if (player1.x < teleX + teleWidth  && player1.x + player1.width  > teleX &&
+			player1.y < teleY + teleHeight && player1.y + player1.height > teleY) {
+			nextLevel();	
+		}
+	}
+
 
 	$('body').keyup(function(event) {
 		if (event.keyCode === KEY_UP || event.keyCode === KEY_W) {
