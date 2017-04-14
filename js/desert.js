@@ -12,7 +12,7 @@
 		velocity: 0,
 		velocityX: 0,
 		grounded: false,
-		hitPoints: 4,
+		hitPoints: 2,
 		invincible: false,
 		timeInvicible: 20,
 
@@ -33,6 +33,13 @@
 			if (player.grounded === false && player.y <= 0){
 				player.y = 0;
 				player.velocity +=2;
+			}
+		},
+
+		checkIfDonezo: function() {
+			if (this.hitPoints <= 0) {
+				currentLevel = levelSelector.level0;
+				this.hitPoints = 2;
 			}
 		},
 
@@ -142,12 +149,12 @@
 		}		
 	}
 
-	function directions() {
+	function desertDirections() {
 		ctx.fillStyle = "#fff";
-		ctx.font="20px Arial";
+		ctx.font="20px Verdana";
 		ctx.beginPath();
-		ctx.fillText("I will trek the mighty Sahara.",canvas.width/4,canvas.height/4);
-		ctx.fillText("This way for Determination -->", canvas.width*.75, canvas.height*.75);
+		ctx.fillText("I will trek the mighty Sahara.",canvas.width*.2,canvas.height*.3);
+		ctx.fillText("2nd Labor -->", canvas.width*.85, canvas.height*.75);
 		ctx.closePath();
 	}
 
@@ -165,7 +172,7 @@
 		for (var i=0; i<obstacles.length; i++) {
 			obstacles[i].draw();
 		}
-		directions();
+		desertDirections();
 	}
 
 	$('body').keydown(function(event) {

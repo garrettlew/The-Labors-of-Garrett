@@ -67,10 +67,10 @@
 
 	function instructions() {
 		ctx.fillStyle = "#fff";
-		ctx.font="20px Arial";
+		ctx.font="20px Verdana";
 		ctx.beginPath();
-		ctx.fillText("WASD or Arrow keys to move. Space to restart.", canvas.width*.1,canvas.height*.6);
-		ctx.fillText("Jump in the inverted fountain for good luck", canvas.width*.55, canvas.height*.55);
+		ctx.fillText("WASD or Arrow keys to move. Space to restart.", canvas.width*.05, canvas.height*.6);
+		ctx.fillText("Jump in the inverted fountain for good luck", canvas.width*.57, canvas.height*.55);
 		ctx.closePath();
 	}
 
