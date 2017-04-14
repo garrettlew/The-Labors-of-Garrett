@@ -175,18 +175,5 @@
 		desertDirections();
 	}
 
-	$('body').keydown(function(event) {
-		if (event.keyCode === KEY_UP && player.grounded || event.keyCode === KEY_W && player.grounded) {
-			UpPressed = true;
-		}
-		if (event.keyCode === KEY_LEFT && player.x >= 0 || event.keyCode === KEY_A && player.x >= 0) {
-			LeftPressed = true;
-		}
-		if (event.keyCode === KEY_RIGHT && playerEdgeX <= canvas.width || event.keyCode === KEY_D && playerEdgeX <= canvas.width ) {
-			RightPressed = true;
-		}
-		if (event.keyCode === KEY_DOWN && playerEdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && playerEdgeY <= canvasEdgeHeight ) {
-			DownPressed = true;
-		}
-	});
+
 
