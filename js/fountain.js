@@ -1,10 +1,4 @@
 
-	//LOADING IMAGES
-	var invertedFountain = new Image();
-	invertedFountain.src = "inverted_fountain2.jpg";
-
-	var uclaBackground = new Image();
-	uclaBackground.src = "ucla_background.jpg";
 
 	var floorHeight = 100;
 
