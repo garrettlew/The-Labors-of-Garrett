@@ -19,9 +19,15 @@ var heart = {
 		if (this.heartBeatTimer >= 0) {
 			ctx.fillStyle = "#e60000";
 		} else if (this.heartBeatTimer >= -5) {	
-			ctx.fillStyle = "#ff6666";	
+			ctx.fillStyle = "#ff6666";
+			//death rolls
+			if (this.size >= 20 && miniGameOver === false) {
+				this.size *= .9;
+			}	
 		} else {
 			this.heartBeatTimer=50;
+			ctx.fillStyle = "#e60000"
+
 		}
 		ctx.fillRect(heartX,heartY,this.size,this.size); 
 		ctx.closePath();
@@ -33,7 +39,7 @@ var heart = {
 
 			if (this.size < this.maxSize) {
 				this.size += this.growthAmount;
-				this.growthAmount = (this.growthAmount * 1.5);
+				this.growthAmount *= 1.1;
 			} 
 			if (this.size > this.maxSize) {
 				this.size = 300;
@@ -96,9 +102,6 @@ function runRedouble() {
 
 }
 
-$('body').keyup(function(event) {
-	KeyPressed = true;
-});
 
 
 
