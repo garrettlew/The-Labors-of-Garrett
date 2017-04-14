@@ -65,13 +65,13 @@
 
 	var player1EdgeX = player1.x+player1.width, player1EdgeY = player1.y+player1.height;
 
-	function checkEndZone() {
+// 	function checkEndZone() {
 
-		if (player1.x < teleX + teleWidth  && player1.x + player1.width  > teleX &&
-			player1.y < teleY + teleHeight && player1.y + player1.height > teleY) {
-			nextLevel();	
-		}
-	}
+// 		if (player1.x < teleX + teleWidth  && player1.x + player1.width  > teleX &&
+// 			player1.y < teleY + teleHeight && player1.y + player1.height > teleY) {
+// 			nextLevel();	
+// 		}
+// 	}
 
 	function instructions() {
 		ctx.fillStyle = "#fff";
