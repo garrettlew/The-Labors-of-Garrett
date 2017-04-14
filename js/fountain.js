@@ -93,9 +93,10 @@
 
 		ctx.drawImage(uclaBackground, 0, 0);
 		ctx.drawImage(invertedFountain, ftnX, ftnY);
+		instructions();
 		player1.draw();
 		drawFloor();
-		instructions();
+
 	
 	}
 
