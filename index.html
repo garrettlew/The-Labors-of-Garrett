@@ -13,7 +13,52 @@
 
 <canvas id="myCanvas" width="1074" height= "576" style="border: 1px solid#000;"></canvas>
 
-<script src="js/desert.js"></script>
+<script>
+
+	//KeyCodes
+	var KEY_LEFT=37, KEY_UP=38, KEY_RIGHT=39, KEY_DOWN=40, SPACE=32, KEY_P=80;
+	//WASD
+	var KEY_A=65, KEY_D=68, KEY_S=83, KEY_W=87;
+
+	//booleans to hold the state of keys
+	var UpPressed = false, LeftPressed = false, RightPressed = false, DownPressed = false;
+
+	var canvas = document.getElementById('myCanvas');
+	var ctx = canvas.getContext('2d');
+
+	function eraseCanvas() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
+	//LOAD DESERT
+	function loadScript(src){
+		var el = document.createElement("script");
+		el.src = src;
+		document.body.appendChild(el);
+	}
+
+	loadScript("js/desert.js");
+
+
+	var gameLoop = function() {
+
+		eraseCanvas();
+
+		player.move();
+		player.update();
+		player.playerInviciblility();
+		spawnObstacle();
+		obstacleChecks();
+
+		drawDesert();
+
+	}
+
+	//dont need () after gameLoop
+	setInterval(gameLoop, 30);	
+
+
+</script>
 
 </body>
 </html>
