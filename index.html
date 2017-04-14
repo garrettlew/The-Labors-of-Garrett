@@ -15,6 +15,14 @@
 
 <script>
 
+	//LEVELS
+	var levelSelector = {
+		level1: 1,
+		level2: 2,
+	};
+
+	var currentLevel = levelSelector.level1;
+
 	//KeyCodes
 	var KEY_LEFT=37, KEY_UP=38, KEY_RIGHT=39, KEY_DOWN=40, SPACE=32, KEY_P=80;
 	//WASD
@@ -37,20 +45,58 @@
 		document.body.appendChild(el);
 	}
 
+	function nextLevel() {
+		currentLevel++;
+	}
+
+	loadScript("js/fountain.js");
 	loadScript("js/desert.js");
+
+
+	$('body').keyup(function(event) {
+		if (event.keyCode === KEY_UP || event.keyCode === KEY_W) {
+			UpPressed = false;
+		}
+		if (event.keyCode === KEY_LEFT || event.keyCode === KEY_A) {
+			LeftPressed = false;
+		}
+		if (event.keyCode === KEY_RIGHT || event.keyCode === KEY_D) {
+			RightPressed = false;
+		}
+
+		//pause
+		if (event.keyCode === KEY_P) {
+			alert("You have paused the game.");
+		}
+		//restart the game
+		if (event.keyCode === SPACE) {
+			location.reload();
+		}
+	});
 
 
 	var gameLoop = function() {
 
 		eraseCanvas();
 
-		player.move();
-		player.update();
-		player.playerInviciblility();
-		spawnObstacle();
-		obstacleChecks();
+		if (currentLevel === levelSelector.level1) {
 
-		drawDesert();
+			checkEndZone();
+			player1.move();
+			player1.update();
+			drawFtnMap();
+
+
+		} else if (currentLevel === levelSelector.level2) {
+
+			player.move();
+			player.update();
+			player.playerInviciblility();
+			spawnObstacle();
+			obstacleChecks();
+
+			drawDesert();
+		}
 
 	}
 
