@@ -22,13 +22,20 @@
 	var uclaBackground = new Image();
 	uclaBackground.src = "ucla_background.jpg";
 
+	var redoubleBackground = new Image();
+	redoubleBackground.src = "redouble_bg.jpg";
+
 	//LEVELS
 	var levelSelector = {
+		level0: 0,
 		level1: 1,
 		level2: 2,
 	};
 
 	var currentLevel = levelSelector.level1;
+
+	//to know which level to go back to when go to redouble
+	var previousLevel = currentLevel;
 
 	//KeyCodes
 	var KEY_LEFT=37, KEY_UP=38, KEY_RIGHT=39, KEY_DOWN=40, SPACE=32, KEY_P=80;
@@ -36,7 +43,7 @@
 	var KEY_A=65, KEY_D=68, KEY_S=83, KEY_W=87;
 
 	//booleans to hold the state of keys
-	var UpPressed = false, LeftPressed = false, RightPressed = false, DownPressed = false;
+	var UpPressed = false, LeftPressed = false, RightPressed = false, DownPressed = false; KeyPressed = false;
 
 	var canvas = document.getElementById('myCanvas');
 	var ctx = canvas.getContext('2d');
@@ -45,7 +52,7 @@
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	}
 
-	//LOAD DESERT
+	//LOAD JS Files
 	function loadScript(src){
 		var el = document.createElement("script");
 		el.src = src;
@@ -58,6 +65,7 @@
 
 	loadScript("js/fountain.js");
 	loadScript("js/desert.js");
+	loadScript("js/redouble.js");
 
 
 	$('body').keyup(function(event) {
@@ -82,6 +90,7 @@
 	});
 
 
+	//Uses sudo finite state machine
 	var gameLoop = function() {
 
 		eraseCanvas();
@@ -96,6 +105,11 @@
 
 		} else if (currentLevel === levelSelector.level2) {
 
+			if (currentLevel != previousLevel) {
+				previousLevel = currentLevel;
+			}
+
+			player.checkIfDonezo();
 			player.move();
 			player.update();
 			player.playerInviciblility();
@@ -103,6 +117,8 @@
 			obstacleChecks();
 
 			drawDesert();
+		} else if (currentLevel === levelSelector.level0) {
+			runRedouble();
 		}
 
 	}
