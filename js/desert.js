@@ -86,7 +86,7 @@
 	<!-- OBSTACLES -->
 
 	var damage = 1;
-	var spawnTimer = 50;
+	var spawnTimer = 20;
 
 	var createObstacle = function(x, y, width, height) {
 		var obstacle = {
@@ -140,12 +140,13 @@
 	}
 
 	var spawnObstacle = function() {
-		if (spawnTimer === 0) {
+		if (spawnTimer <= 0) {
 			var obstacleHeight = Math.random() * 100 + 85;
 			obstacles.push(createObstacle(canvas.width, canvasEdgeHeight - obstacleHeight, 50, obstacleHeight));
-			spawnTimer = 70;
+			spawnTimer = 40 + Math.random() * 30;
 		} else {
 			spawnTimer--;
+			console.log(spawnTimer);
 		}		
 	}
 
