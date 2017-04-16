@@ -146,9 +146,10 @@
 
 	function desertDirections() {
 		ctx.fillStyle = "#fff";
-		ctx.font="20px Verdana";
+		ctx.font="30px Verdana";
 		ctx.beginPath();
-		ctx.fillText("I will trek the mighty Sahara.",canvas.width*.2,canvas.height*.3);
+		ctx.fillText("I will trek the mighty Sahara.",canvas.width*.2,canvas.height*.2);
+		ctx.font="20px Verdana";
 		ctx.fillText("3rd Labor -->", canvas.width*.85, canvas.height*.75);
 		ctx.closePath();
 	}
@@ -169,8 +170,5 @@
 		}
 		desertDirections();
 	}
-
-	console.log("yoo");
-
 
 

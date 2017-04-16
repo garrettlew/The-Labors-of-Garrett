@@ -1,15 +1,18 @@
 
 
-function champion (x, y, canvasEdgeHeight, jumpForce) {
+function champion (x, y, canvasEdgeHeight, jumpForce, speed) {
 	this.x = x;
 	this.y =y;
 	this.canvasEdgeHeight = canvasEdgeHeight;
 	this.width = 50;
 	this.height = 50;
-	this.speed = 3;
+	this.speed = speed;
 	this.velocity = 0;
 	this.jumpForce = jumpForce;
 	this.grounded = false;
+	this.hitPoints = 2;
+	this.invincible = false;
+	this.timeInvicible = 20;
 	this.move = function() {
 
 		if (UpPressed && this.grounded) {
@@ -25,6 +28,25 @@ function champion (x, y, canvasEdgeHeight, jumpForce) {
 		if (this.grounded === false && this.y <= 0){
 			this.y = 0;
 			this.velocity +=2;
+		}
+	};
+	this.checkIfDonezo = function() {
+		if (this.hitPoints <= 0) {
+			currentLevel = levelSelector.level0;
+			this.hitPoints = 2;
+		}
+	};
+	this.playerInviciblility = function() {
+
+		if (this.invincible === true) {
+			if (this.timeInvicible === 0) {
+				this.invincible = false;
+				this.timeInvicible = 20;
+				damage = 1;
+			} else {
+				damage = 0;
+				this.timeInvicible--;
+			}
 		}
 	};
 	this.update = function() {
@@ -46,7 +68,20 @@ function champion (x, y, canvasEdgeHeight, jumpForce) {
 	}
 }
 
-var champion1 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20);
+var champion1 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 3);
 
-var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHeight, 15);
+var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHeight, 17, 8);
+
+champion2.draw = function() {
+
+		if (!this.invincible) {
+			ctx.fillStyle = "#e60000";
+		} else {	
+			ctx.fillStyle = "#ff6666";
+		}
+		ctx.beginPath();
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		ctx.drawImage(boat, this.x-5, this.y+(this.height/2));
+		ctx.closePath();
+}
 
