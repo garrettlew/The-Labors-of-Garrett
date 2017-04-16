@@ -68,9 +68,9 @@ function champion (x, y, canvasEdgeHeight, jumpForce, speed) {
 	}
 }
 
-var champion1 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 3);
+var champion1 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 4);
 
-var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHeight, 17, 8);
+var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHeight, 18, 6);
 
 champion2.draw = function() {
 
