@@ -10,7 +10,6 @@
 		height: 50,
 		speed: 3,
 		velocity: 0,
-		velocityX: 0,
 		grounded: false,
 		hitPoints: 2,
 		invincible: false,
@@ -21,15 +20,13 @@
 			if (UpPressed && player.grounded) {
 				player.grounded = false;
 				player.velocity = -20;
-				player.velocityX = 0;
 			}
 			if (LeftPressed && player.x >= 0) {
 				player.x -= player.speed;
 			}
-			if (RightPressed && playerEdgeX <= canvas.width) {
+			if (RightPressed && player.x+player.width <= canvas.width) {
 				player.x += player.speed;
 			}
-			player.x += player.velocityX;
 			if (player.grounded === false && player.y <= 0){
 				player.y = 0;
 				player.velocity +=2;
@@ -81,8 +78,6 @@
 		}
 	};
 
-	var playerEdgeX = player.x+player.width, playerEdgeY = player.y+player.height;
-
 	<!-- OBSTACLES -->
 
 	var damage = 1;
@@ -121,7 +116,7 @@
 			if (player.invincible === false) {
 				player.hitPoints -= damage;
 				player.invincible = true;
-				console.log(player.hitPoints);
+				//console.log(player.hitPoints);
 			}
 		}		
 	}
@@ -146,7 +141,6 @@
 			spawnTimer = 40 + Math.random() * 30;
 		} else {
 			spawnTimer--;
-			console.log(spawnTimer);
 		}		
 	}
 
@@ -155,7 +149,7 @@
 		ctx.font="20px Verdana";
 		ctx.beginPath();
 		ctx.fillText("I will trek the mighty Sahara.",canvas.width*.2,canvas.height*.3);
-		ctx.fillText("2nd Labor -->", canvas.width*.85, canvas.height*.75);
+		ctx.fillText("3rd Labor -->", canvas.width*.85, canvas.height*.75);
 		ctx.closePath();
 	}
 
@@ -175,6 +169,8 @@
 		}
 		desertDirections();
 	}
+
+	console.log("yoo");
 
 
 
