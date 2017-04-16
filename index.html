@@ -23,10 +23,6 @@
 		document.body.appendChild(el);
 	}
 
-	loadScript("js/fountain.js");
-	loadScript("js/desert.js");
-	loadScript("js/redouble.js");
-
 	//LOADING IMAGES
 	var invertedFountain = new Image();
 	invertedFountain.src = "images/inverted_fountain2.jpg";
@@ -37,11 +33,18 @@
 	var redoubleBackground = new Image();
 	redoubleBackground.src = "images/redouble_bg.jpg";
 
+	loadScript("js/map_levels.js");
+	loadScript("js/desert.js");
+	loadScript("js/redouble.js");
+
+	loadScript("js/champion.js");
+
 	//LEVELS
 	var levelSelector = {
 		level0: 0,
 		level1: 1,
 		level2: 2,
+		level3: 3,
 	};
 
 	var currentLevel = levelSelector.level1;
@@ -89,39 +92,53 @@
 			alert("You have paused the game.");
 		}
 		//restart the game
-		if (event.keyCode === SPACE) {
-			location.reload();
-		}
+		// if (event.keyCode === SPACE) {
+		// 	location.reload();
+		// }
 	});
 
 	$('body').keydown(function(event) {
 
 		if (currentLevel === levelSelector.level1) {
-			if (event.keyCode === KEY_UP && player1.grounded || event.keyCode === KEY_W && player1.grounded) {
+			if (event.keyCode === KEY_UP && champion1.grounded || event.keyCode === KEY_W && champion1.grounded) {
 				UpPressed = true;
 			}
-			if (event.keyCode === KEY_LEFT && player1.x >= 0 || event.keyCode === KEY_A && player1.x >= 0) {
+			if (event.keyCode === KEY_LEFT && champion1.x >= 0 || event.keyCode === KEY_A && champion1.x >= 0) {
 				LeftPressed = true;
 			}
-			if (event.keyCode === KEY_RIGHT && player1EdgeX <= canvas.width || event.keyCode === KEY_D && player1EdgeX <= canvas.width ) {
+			if (event.keyCode === KEY_RIGHT && champion1.x+champion1.width <= canvas.width || event.keyCode === KEY_D && champion1.x+champion1.width <= canvas.width ) {
 				RightPressed = true;
 			}
-			if (event.keyCode === KEY_DOWN && player1EdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && player1EdgeY <= canvasEdgeHeight ) {
+			if (event.keyCode === KEY_DOWN && champion1.y+champion1.height <= champion1.canvasEdgeHeight || event.keyCode === KEY_S && champion1.y+champion1.height <= champion1.canvasEdgeHeight ) {
+				DownPressed = true;
+			}
+		}
+		if (currentLevel === levelSelector.level2) {
+			if (event.keyCode === KEY_UP && champion2.grounded || event.keyCode === KEY_W && champion2.grounded) {
+				UpPressed = true;
+			}
+			if (event.keyCode === KEY_LEFT && champion2.x >= 0 || event.keyCode === KEY_A && champion2.x >= 0) {
+				LeftPressed = true;
+			}
+			if (event.keyCode === KEY_RIGHT && champion2.x+champion2.width <= canvas.width || event.keyCode === KEY_D && champion2.x+champion2.width <= canvas.width ) {
+				RightPressed = true;
+			}
+			if (event.keyCode === KEY_DOWN && champion2.y+champion2.height <= champion2.canvasEdgeHeight || event.keyCode === KEY_S && champion2.y+champion2.height <= champion2.canvasEdgeHeight ) {
 				DownPressed = true;
 			}
 		}
 
-		if (currentLevel === levelSelector.level2) {
+		if (currentLevel === levelSelector.level3) {
 			if (event.keyCode === KEY_UP && player.grounded || event.keyCode === KEY_W && player.grounded) {
 				UpPressed = true;
 			}
 			if (event.keyCode === KEY_LEFT && player.x >= 0 || event.keyCode === KEY_A && player.x >= 0) {
 				LeftPressed = true;
 			}
-			if (event.keyCode === KEY_RIGHT && playerEdgeX <= canvas.width || event.keyCode === KEY_D && playerEdgeX <= canvas.width ) {
+			if (event.keyCode === KEY_RIGHT && player.x+player.width <= canvas.width || event.keyCode === KEY_D && player.x+player.width <= canvas.width ) {
 				RightPressed = true;
 			}
-			if (event.keyCode === KEY_DOWN && playerEdgeY <= canvasEdgeHeight || event.keyCode === KEY_S && playerEdgeY <= canvasEdgeHeight ) {
+			if (event.keyCode === KEY_DOWN && player.y+player.height <= canvasEdgeHeight || event.keyCode === KEY_S && player.y+player.height <= canvasEdgeHeight ) {
 				DownPressed = true;
 			}
 		}
@@ -135,13 +152,25 @@
 
 		if (currentLevel === levelSelector.level1) {
 
-			checkEndZone();
-			player1.move();
-			player1.update();
+			checkFtnZone(champion1);
+			champion1.move();
+			champion1.update();
 			drawFtnMap();
 
 
 		} else if (currentLevel === levelSelector.level2) {
+
+			if (currentLevel != previousLevel) {
+				previousLevel = currentLevel;
+			}
+
+			checkOceanEnd(champion2);
+			champion2.move();
+			champion2.update();
+			drawOceanMap();
+
+		} 
+		else if (currentLevel === levelSelector.level3) {
 
 			if (currentLevel != previousLevel) {
 				previousLevel = currentLevel;
@@ -160,6 +189,8 @@
 		}
 
 	}
+
+	console.log("hoo");
 
 	//dont need () after gameLoop
 	setInterval(gameLoop, 30);	
