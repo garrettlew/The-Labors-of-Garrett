@@ -16,13 +16,6 @@
 
 <script>
 
-	//LOAD JS Files
-	function loadScript(src){
-		var el = document.createElement("script");
-		el.src = src;
-		document.body.appendChild(el);
-	}
-
 	//LOADING IMAGES
 	var invertedFountain = new Image();
 	invertedFountain.src = "images/inverted_fountain2.jpg";
@@ -32,6 +25,21 @@
 
 	var redoubleBackground = new Image();
 	redoubleBackground.src = "images/redouble_bg.jpg";
+
+	var boat = new Image();
+	boat.src = "images/ucla_boat.jpg";
+
+	var glacier = new Image();
+	glacier.src = "images/glacier.jpg";
+
+	var filesLoaded = false;
+
+	//LOAD JS Files
+	function loadScript(src){
+		var el = document.createElement("script");
+		el.src = src;
+		document.body.appendChild(el);
+	}
 
 	loadScript("js/map_levels.js");
 	loadScript("js/desert.js");
@@ -148,49 +156,52 @@
 	//Uses sudo finite state machine
 	var gameLoop = function() {
 
-		eraseCanvas();
+		if (filesLoaded) {
+			eraseCanvas();
 
-		if (currentLevel === levelSelector.level1) {
+			if (currentLevel === levelSelector.level1) {
 
-			checkFtnZone(champion1);
-			champion1.move();
-			champion1.update();
-			drawFtnMap();
+				checkFtnZone(champion1);
+				champion1.move();
+				champion1.update();
+				drawFtnMap();
 
 
-		} else if (currentLevel === levelSelector.level2) {
+			} else if (currentLevel === levelSelector.level2) {
 
-			if (currentLevel != previousLevel) {
-				previousLevel = currentLevel;
+				if (currentLevel != previousLevel) {
+					previousLevel = currentLevel;
+				}
+
+				checkOceanEnd(champion2);
+				champion2.checkIfDonezo();
+				champion2.move();
+				champion2.update();
+				champion2.playerInviciblility();
+				glacierChecks(champion2);
+				spawnGlacier();
+				drawOceanMap();
+			} 
+			else if (currentLevel === levelSelector.level3) {
+
+				if (currentLevel != previousLevel) {
+					previousLevel = currentLevel;
+				}
+
+				player.checkIfDonezo();
+				player.move();
+				player.update();
+				player.playerInviciblility();
+				spawnObstacle();
+				obstacleChecks();
+
+				drawDesert();
+			} else if (currentLevel === levelSelector.level0) {
+				runRedouble();
 			}
-
-			checkOceanEnd(champion2);
-			champion2.move();
-			champion2.update();
-			drawOceanMap();
-
-		} 
-		else if (currentLevel === levelSelector.level3) {
-
-			if (currentLevel != previousLevel) {
-				previousLevel = currentLevel;
-			}
-
-			player.checkIfDonezo();
-			player.move();
-			player.update();
-			player.playerInviciblility();
-			spawnObstacle();
-			obstacleChecks();
-
-			drawDesert();
-		} else if (currentLevel === levelSelector.level0) {
-			runRedouble();
+	
 		}
-
 	}
-
-	console.log("hoo");
 
 	//dont need () after gameLoop
 	setInterval(gameLoop, 30);	
