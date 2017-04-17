@@ -132,9 +132,6 @@ filesLoaded = true;
 		if (mapInitialized===false) {	
 			glaciers.push(createGlacier(500, oceanCanvasEdgeHeight-72));		
 			glaciers.push(createGlacier(800, oceanCanvasEdgeHeight-72));			
-			// for (var i=0;i<3;i++) {			
-
-			// }
 			mapInitialized = true;
 		}
 
@@ -162,8 +159,8 @@ filesLoaded = true;
 		ctx.beginPath();
 		ctx.fillText("I'll fight off a horde of zombies.", canvas.width*.05, canvas.height*.1);
 		ctx.font="20px Verdana";
-		ctx.fillText("Get to the chopper!", canvas.width*.8, canvas.height*.8);
-		ctx.fillText("Use space to fire your weapon.", canvas.width*.2, canvas.height*.4);
+		ctx.fillText("Get to the chopper!", canvas.width*.8, canvas.height*.75);
+		ctx.fillText("Use space to fire your weapon.", canvas.width*.2, canvas.height*.45);
 		
 		ctx.closePath();
 	}
@@ -178,13 +175,25 @@ filesLoaded = true;
 			y: y,
 			width: width,
 			height: height,
-			speed: 3,
-			move: function() {
-				this.x -= this.speed;
+			speed: 1,
+			move: function(champ) {
+				if (this.x > champ.x) {
+					this.x -= this.speed;
+				} else if (this.x < champ.x) {
+					this.x += this.speed;
+				}
+				else {
+					this.x -= this.speed;
+				}
 			},
 			draw: function(){
+				ctx.beginPath();
 				ctx.fillStyle = "green";
 				ctx.fillRect(this.x, this.y, this.width, this.height);
+				ctx.lineWidth="1";
+				ctx.strokeStyle="#000";
+				ctx.strokeRect(this.x, this.y, this.width, this.height);
+				ctx.closePath();
 			}
 		}
 		return zombie;
@@ -212,21 +221,40 @@ filesLoaded = true;
 
 	var zombieChecks = function(champ) {
 		for (var i=0; i<zombies.length; i++) {
-			zombies[i].move();
+			zombies[i].move(champ);
 			zombies[i].draw();
 			detectZombie(champ, zombies[i]);
-			//chooses the enemy outside the screen then removes that one
-			if (zombies[i].x < -50) {
-				removeZombie(zombies[i]);
-				i--;	//subtracts one because it would skip drawing the next enemy
-			}
 		}
 	}
 
 	var spawnZombie = function() {
+		var zombieSpawnLocation = Math.random() * 100;
+
 		if (zombieSpawnTimer <= 0) {
-			zombies.push(createZombie(canvas.width, canvasEdgeHeight - 80, 40, 80));
-			zombieSpawnTimer = 40 + Math.random() * 30;
+			
+			if (zombieSpawnLocation >= 60) {
+				zombies.push(createZombie(canvas.width-1200, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width-1230, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width-1210, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width-1200, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width-1230, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width-1210, canvasEdgeHeight - 60, 30, 60));
+			} else if (zombieSpawnLocation >= 20) {
+				zombies.push(createZombie(canvas.width, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width+30, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width+10, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width+30, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width+10, canvasEdgeHeight - 60, 30, 60));
+			} else if (zombieSpawnLocation >= 10){
+				zombies.push(createZombie(canvas.width-1200, canvasEdgeHeight - 60, 30, 60));
+				zombies.push(createZombie(canvas.width, canvasEdgeHeight - 60, 30, 60));
+			} else {
+				zombieSpawnTimer -= 50;
+			}
+			
+			
+			zombieSpawnTimer = 100;
 		} else {
 			zombieSpawnTimer--;
 		}	
@@ -234,15 +262,21 @@ filesLoaded = true;
 
 	//Pistol
 
-	var createBullet = function(x, y, width, height) {
+	var createBullet = function(x, y, width, height, direction) {
 		var bullet = {
 			x: x,
 			y: y,
 			width: width,
 			height: height,
 			speed: 10,
+			direction: direction,	//boolean
 			move: function() {
-				this.x += this.speed;
+				//if facing forward
+				if (this.direction) {
+					this.x += this.speed;
+				} else {
+					this.x -= this.speed;
+				}	
 			},
 			draw: function() {
 				ctx.fillStyle = "red";
@@ -284,13 +318,14 @@ filesLoaded = true;
 	};
 
 	var spawnBullet = function(champ) {
-		bullets.push(createBullet(champ.x+(champ.width/2), champ.y+(champ.height/2), 10, 10));
+		bullets.push(createBullet(champ.x+(champ.width/2), champ.y+(champ.height/2)-10, 10, 5, champ.facingForward));
 	}
 
 	function runZombieMap() {
 
 		champion4.checkIfDonezo();
 		zombieDirections();
+		bulletChecks();
 		champion4.move();
 		champion4.update();
 		champion4.draw();
@@ -298,7 +333,6 @@ filesLoaded = true;
 		champion4.firePistol();
 		spawnZombie();
 		zombieChecks(champion4);
-		bulletChecks();
 		drawFloor();
 
 	};
