@@ -153,15 +153,17 @@ filesLoaded = true;
 
 //ZOMBIE MAP
 
+	var chopperTime = 60000;
+
 	function zombieDirections() {
 		ctx.fillStyle = "#fff";
 		ctx.font="30px Verdana";
 		ctx.beginPath();
-		ctx.fillText("I'll fight off a horde of zombies.", canvas.width*.05, canvas.height*.1);
+		ctx.fillText("I'll fight off a horde of zombies.", canvas.width*.05, canvas.height*.2);
 		ctx.font="20px Verdana";
-		ctx.fillText("Get to the chopper!", canvas.width*.8, canvas.height*.75);
-		ctx.fillText("Use space to fire your weapon.", canvas.width*.2, canvas.height*.45);
-		
+		ctx.fillText("Get to the chopper!", canvas.width*.7, canvas.height*.2);
+		ctx.fillText("Hold space to fire your weapon.", canvas.width*.1, canvas.height*.45);
+		ctx.fillText("Chopper Inbound T-"+Math.ceil(chopperTime/1000), canvas.width*.7, canvas.height*.1);		
 		ctx.closePath();
 	}
 
@@ -321,8 +323,26 @@ filesLoaded = true;
 		bullets.push(createBullet(champ.x+(champ.width/2), champ.y+(champ.height/2)-10, 10, 5, champ.facingForward));
 	}
 
+	var lazors = function(champ) {
+		bullets.push(createBullet(champ.x+(champ.width/2), champ.y+(champ.height/2)-10, 10, 5, true));
+		bullets.push(createBullet(champ.x+(champ.width/2), champ.y+(champ.height/2)-10, 10, 5, false));
+	}
+
+	function countDown() {
+		chopperTime -= 33;
+		console.log(chopperTime);
+	}
+
+	function checkZombieEnd() {
+
+		if (chopperTime <= 0) {
+			nextLevel();	
+		}
+	}
+
 	function runZombieMap() {
 
+		checkZombieEnd();
 		champion4.checkIfDonezo();
 		zombieDirections();
 		bulletChecks();
@@ -334,8 +354,42 @@ filesLoaded = true;
 		spawnZombie();
 		zombieChecks(champion4);
 		drawFloor();
-
+		countDown();
 	};
+
+//END SCREEN
+	var messageX = canvas.width*.07; var messageY = canvas.height*.6;
+
+	function movingMessage() {
+		messageX+=2;
+		if (messageX > canvas.width) {
+			messageX = -600;
+		}
+	}
+
+	function victoryMessage() {
+		ctx.fillStyle = "#fff";
+		ctx.font="30px Verdana";
+		ctx.beginPath();
+		ctx.fillText("Welcome back Garrett. You are victorious.", messageX, messageY);
+		//ctx.fillText("Jump in the inverted fountain for good luck.", canvas.width*.57, canvas.height*.55);
+		ctx.closePath();
+	}
+
+	function runEndScreen() {
+
+		ctx.drawImage(uclaBackground, 0, 0);
+		ctx.drawImage(invertedFountain, ftnX, ftnY);
+		movingMessage();
+		victoryMessage();
+		champion5.move();
+		champion5.update();
+		champion5.draw();
+		drawFloor();
+	
+	}
+
+
 
 
 

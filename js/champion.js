@@ -83,6 +83,8 @@ var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHei
 
 var champion4 = new champion(canvas.width/2, ftnCanvasEdgeHeight - 200, ftnCanvasEdgeHeight, 20, 6);
 
+var champion5 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 4);
+
 champion2.draw = function() {
 
 		if (!this.invincible) {
@@ -138,7 +140,10 @@ champion4.playerInviciblility = function() {
 			damage = 0;
 			this.timeInvicible--;
 			if (this.died) {
-				spawnBullet(this);
+				ctx.font="25px Verdana";
+				ctx.fillStyle = "#fff";
+				ctx.fillText("I will not fail!!",this.x + this.width/2,canvas.height*.6);
+				lazors(this);
 			}	
 		}
 	}
