@@ -54,7 +54,7 @@ function redoubleDirections() {
 	ctx.fillStyle = "#fff";
 	ctx.font="20px Verdana";
 	ctx.beginPath();
-	ctx.fillText("Garrett's been set back. Repeatedly tap keys to redouble Garrett's efforts.", canvas.width*.1,canvas.height*.15);
+	ctx.fillText("Garrett's been set back. Repeatedly tap keys to redouble Garrett's efforts.", canvas.width*.15,canvas.height*.15);
 	ctx.closePath();
 }
 

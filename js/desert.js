@@ -116,7 +116,7 @@
 			if (player.invincible === false) {
 				player.hitPoints -= damage;
 				player.invincible = true;
-				//console.log(player.hitPoints);
+				console.log(player.hitPoints);
 			}
 		}		
 	}
@@ -164,11 +164,15 @@
 	function drawDesert() {
 		player.draw();
 		ground();
-		//draw all obstacles in the array
-		for (var i=0; i<obstacles.length; i++) {
-			obstacles[i].draw();
-		}
 		desertDirections();
+	}
+
+	function checkDesertEnd(champ) {
+
+		if (champ.x+champ.width > canvas.width) {
+			nextLevel();	
+			console.log(currentLevel);
+		}
 	}
 
 

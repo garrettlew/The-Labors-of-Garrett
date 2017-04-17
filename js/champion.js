@@ -61,8 +61,12 @@ function champion (x, y, canvasEdgeHeight, jumpForce, speed) {
 		}
 	};
 	this.draw = function() {
+		if (!this.invincible) {
+			ctx.fillStyle = "#e60000";
+		} else {	
+			ctx.fillStyle = "#ff6666";
+		}
 		ctx.beginPath();
-		ctx.fillStyle = "#e60000"
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.closePath();
 	}
@@ -71,6 +75,8 @@ function champion (x, y, canvasEdgeHeight, jumpForce, speed) {
 var champion1 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 4);
 
 var champion2 = new champion(50, oceanCanvasEdgeHeight - 100, oceanCanvasEdgeHeight, 18, 6);
+
+var champion4 = new champion(50, ftnCanvasEdgeHeight - 100, ftnCanvasEdgeHeight, 20, 4);
 
 champion2.draw = function() {
 
@@ -83,5 +89,12 @@ champion2.draw = function() {
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.drawImage(boat, this.x-5, this.y+(this.height/2));
 		ctx.closePath();
-}
+};
+
+champion4.firePistol = function() {
+	if (SpacePressed) {
+		spawnBullet(this);
+	}
+
+};
 
