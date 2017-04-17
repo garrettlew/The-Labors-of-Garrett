@@ -54,6 +54,7 @@
 			level2: 2,
 			level3: 3,
 			level4: 4,
+			level5: 5,
 		};
 
 		//SETS LEVEL
@@ -225,7 +226,10 @@
 						previousLevel = currentLevel;
 					}
 					runZombieMap();
-				} else if (currentLevel === levelSelector.level0) {
+				} else if (currentLevel  === levelSelector.level5) {
+					runEndScreen();
+				}
+				else if (currentLevel === levelSelector.level0) {
 					runRedouble();
 				}
 		
