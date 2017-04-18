@@ -22,7 +22,6 @@ filesLoaded = true;
 		ctx.fillStyle = "#fff";
 		ctx.font="20px Verdana";
 		ctx.beginPath();
-		ctx.fillText("WASD or Arrow keys to move. 'P' to pause.", canvas.width*.07, canvas.height*.6);
 		ctx.fillText("Jump in the inverted fountain for good luck.", canvas.width*.57, canvas.height*.55);
 		ctx.closePath();
 	}
@@ -43,8 +42,11 @@ filesLoaded = true;
 		instructions();
 		champion1.draw();
 		drawFloor();
-
-
+		ctx.fillStyle = "#fff";
+		ctx.font="25px Verdana";
+		ctx.beginPath();
+		ctx.fillText("WASD or Arrow keys to move. 'P' to pause.", canvas.width*.25, canvas.height*.9);
+		ctx.closePath();
 	
 	}
 
@@ -306,12 +308,15 @@ filesLoaded = true;
 				i--;	//subtracts one because it would skip drawing the next bullet
 			}
 			for (var j=0; j<zombies.length; j++) {	
-				if (bullets[i].x < zombies[j].x + zombies[j].width  && bullets[i].x + bullets[i].width  > zombies[j].x &&
-					bullets[i].y < zombies[j].y + zombies[j].height && bullets[i].y + bullets[i].height > zombies[j].y) {
-					removeBullet(bullets[i]);
-					i--;
-					removeZombie(zombies[j]);
-					j--;
+
+				if (bullets[i] && zombies[j]) {
+					if (bullets[i].x < zombies[j].x + zombies[j].width  && bullets[i].x + bullets[i].width  > zombies[j].x &&
+						bullets[i].y < zombies[j].y + zombies[j].height && bullets[i].y + bullets[i].height > zombies[j].y) {
+						removeBullet(bullets[i]);
+						i--;
+						removeZombie(zombies[j]);
+						j--;
+					}
 				}
 			}
 		}
