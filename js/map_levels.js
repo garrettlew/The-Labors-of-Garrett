@@ -159,11 +159,10 @@ filesLoaded = true;
 		ctx.fillStyle = "#fff";
 		ctx.font="30px Verdana";
 		ctx.beginPath();
-		ctx.fillText("I'll fight off a horde of zombies.", canvas.width*.05, canvas.height*.2);
+		ctx.fillText("I'll fight off a horde of zombies.", canvas.width*.05, canvas.height*.25);
+		ctx.fillText("Chopper Inbound T-"+Math.ceil(chopperTime/1000), canvas.width*.3, canvas.height*.1);
 		ctx.font="20px Verdana";
-		ctx.fillText("Get to the chopper!", canvas.width*.7, canvas.height*.2);
-		ctx.fillText("Hold space to fire your weapon.", canvas.width*.1, canvas.height*.45);
-		ctx.fillText("Chopper Inbound T-"+Math.ceil(chopperTime/1000), canvas.width*.7, canvas.height*.1);		
+		ctx.fillText("Get to the chopper!", canvas.width*.4, canvas.height*.7);			
 		ctx.closePath();
 	}
 
@@ -306,14 +305,13 @@ filesLoaded = true;
 				removeBullet(bullets[i]);
 				i--;	//subtracts one because it would skip drawing the next bullet
 			}
-			for (var j=0; j<zombies.length; j++) {
+			for (var j=0; j<zombies.length; j++) {	
 				if (bullets[i].x < zombies[j].x + zombies[j].width  && bullets[i].x + bullets[i].width  > zombies[j].x &&
 					bullets[i].y < zombies[j].y + zombies[j].height && bullets[i].y + bullets[i].height > zombies[j].y) {
 					removeBullet(bullets[i]);
 					i--;
 					removeZombie(zombies[j]);
 					j--;
-					console.log(zombies.length);	
 				}
 			}
 		}
@@ -330,7 +328,6 @@ filesLoaded = true;
 
 	function countDown() {
 		chopperTime -= 33;
-		console.log(chopperTime);
 	}
 
 	function checkZombieEnd() {
@@ -354,6 +351,9 @@ filesLoaded = true;
 		spawnZombie();
 		zombieChecks(champion4);
 		drawFloor();
+		ctx.fillStyle = "#fff";
+		ctx.font="25px Verdana";
+		ctx.fillText("Hold space to fire your weapon.", canvas.width*.3, canvas.height*.9);
 		countDown();
 	};
 
