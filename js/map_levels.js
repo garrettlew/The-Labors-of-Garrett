@@ -253,11 +253,11 @@ filesLoaded = true;
 				zombies.push(createZombie(canvas.width-1200, canvasEdgeHeight - 60, 30, 60));
 				zombies.push(createZombie(canvas.width, canvasEdgeHeight - 60, 30, 60));
 			} else {
-				zombieSpawnTimer -= 50;
+				zombieSpawnTimer -= 60;
 			}
 			
 			
-			zombieSpawnTimer = 100;
+			zombieSpawnTimer = 70;
 		} else {
 			zombieSpawnTimer--;
 		}	
@@ -363,12 +363,16 @@ filesLoaded = true;
 	};
 
 //END SCREEN
-	var messageX = canvas.width*.07; var messageY = canvas.height*.6;
+	var messageX = 0; var messageY = canvas.height*.6; var message2X = 850;
 
 	function movingMessage() {
-		messageX+=2;
+		messageX+=3;
+		message2X+=3;
 		if (messageX > canvas.width) {
 			messageX = -600;
+		}
+		if (message2X > canvas.width) {
+			message2X = -600;
 		}
 	}
 
@@ -378,6 +382,7 @@ filesLoaded = true;
 		ctx.beginPath();
 		ctx.fillText("Welcome back Garrett. You are victorious.", messageX, messageY);
 		//ctx.fillText("Jump in the inverted fountain for good luck.", canvas.width*.57, canvas.height*.55);
+		ctx.fillText("Welcome back Garrett. You are victorious.", message2X, messageY);
 		ctx.closePath();
 	}
 
